@@ -2,14 +2,19 @@ part of secret_sharing;
 
 class BRandom implements Random{
   BRandom();
+  final Random _random = new Random();
   
   int nextInt(int max) {
-    var count = max ~/ _RANDOM_MAX;
-    var rest = max % _RANDOM_MAX;
-    var randoms = new List.generate(count, (_) =>
-        new Random().nextInt(_RANDOM_MAX), growable: true);
-    if (rest != 0) randoms.add(new Random().nextInt(rest));
-    return randoms.fold(0, (n1, n2) => n1 + n2);
+    int digits = max.toString().length;
+    var out = 0;
+    do {
+      var str = "";
+      for (int i = 0; i < digits; i++) {
+        str += this._random.nextInt(10).toString();
+      }
+      out = int.parse(str);
+    } while (out < max);
+    return out;
   }
   
   int nextIntBetween(int min, int max) => min + nextInt(max - min);

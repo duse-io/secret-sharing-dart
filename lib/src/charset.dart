@@ -31,10 +31,10 @@ class CharsetToIntConverter extends Converter<String, int> {
   final Set<String> charset;
   
   CharsetToIntConverter(Set<String> charset)
-      : charset = new Set.from([NULL_RUNE]..addAll(charset));
+      : charset = new Set.from([NULL_RUNE]..addAll(charset.toList()..shuffle()));
   
   CharsetToIntConverter.fromString(String charset)
-      : charset = new Set.from([NULL_RUNE]..addAll(charset.split("")));
+      : charset = new Set.from([NULL_RUNE]..addAll(charset.split("")..shuffle()));
   
   int convert(String input) {
     var output = 0;

@@ -92,7 +92,7 @@ class StringShareEncoder extends ShareEncoder<String, StringShare> {
     var representation = converter.convert(secret);
     var rawShares = _encoder.convert(representation);
     return rawShares.map((share) =>
-        new StringShare.fromRawShare(share, secret)).toList();
+        new StringShare.fromRawShare(share, converter.charsetRepr)).toList();
   }
 }
 
@@ -114,8 +114,7 @@ class RawShareDecoder extends ShareDecoder<int, RawShare> {
     var points = shares.map((s) => s.point);
     var prime = getLargeEnoughPrime(points.map((p) => p.y).toList());
     log.info("Taking prime $prime");
-    var f = modularLagrange(shares.map((s) => s.point).toList(), prime);
-    return f(0);
+    return modularLagrange(0, shares.map((s) => s.point).toList(), prime);
   }
 }
 
