@@ -1,7 +1,7 @@
 import 'package:secret_sharing/secret_sharing.dart';
 import 'package:unittest/unittest.dart';
 
-const int RANDOM_COUNT = 100000;
+const int RANDOM_COUNT = 100;
 
 rTest(String name, f(), {randomCount: RANDOM_COUNT}) {
   test(name, () {

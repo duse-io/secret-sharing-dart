@@ -10,12 +10,13 @@ class RawShare implements Share {
   
   factory RawShare(String rawShare) {
     var parts = rawShare.split("-");
-    var x = int.parse(parts[0]);
-    var y = int.parse(parts[1]);
+    var x = int.parse(parts[0], radix: 16);
+    var y = int.parse(parts[1], radix: 16);
     return new RawShare.fromPoint(new Point(x, y));
   }
   
-  String toString() => point.x.toString() + "-" + point.y.toString();
+  String toString() => point.x.toRadixString(16) + "-" +
+      point.y.toRadixString(16);
 }
 
 class StringShare implements RawShare {
