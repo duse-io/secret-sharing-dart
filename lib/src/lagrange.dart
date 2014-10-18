@@ -2,20 +2,21 @@ part of secret_sharing;
 
 typedef Func(int x);
 
-int modularLagrange(int x, List<Point<int>> points, int prime) {
+int modularLagrange(List<Point<int>> points) {
   var xValues = [];
   var yValues = [];
   points.forEach((point) {
     xValues.add(point.x);
     yValues.add(point.y);
   });
+  var prime = getLargeEnoughPrime(yValues);
   var f_x = 0;
   for (int i = 0; i < points.length; i++) {
       var numerator = 1;
       var denominator = 1;
       for (int j = 0; j < points.length; j++) {
           if (i == j) continue;
-          numerator = (numerator * (x - xValues[j])) % prime;
+          numerator = (numerator * (0 - xValues[j])) % prime;
           denominator = (denominator * (xValues[i] - xValues[j])) % prime;
       var lagrange_polynomial = numerator * modInverse(denominator, prime);
       f_x = (prime + f_x + (yValues[i] * lagrange_polynomial)) % prime;

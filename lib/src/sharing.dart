@@ -113,9 +113,7 @@ class StringShareDecoder extends ShareDecoder<String, StringShare> {
 class RawShareDecoder extends ShareDecoder<int, RawShare> {
   int convert(List<RawShare> shares) {
     var points = shares.map((s) => s.point);
-    var prime = getLargeEnoughPrime(points.map((p) => p.y).toList());
-    log.info("Taking prime $prime");
-    return modularLagrange(0, shares.map((s) => s.point).toList(), prime);
+    return modularLagrange(shares.map((s) => s.point).toList());
   }
 }
 

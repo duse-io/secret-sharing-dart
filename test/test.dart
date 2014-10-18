@@ -16,14 +16,14 @@ main() {
     var share = new StringShare("abc-0-1");
     expect(share.point, equals(new Point(0, 1)));
     expect(share.charsetString, equals("abc"));
-    share = new StringShare("ab----10-5");
-    expect(share.point, equals(new Point(10, 5)));
+    share = new StringShare("ab----f-5");
+    expect(share.point, equals(new Point(15, 5)));
     expect(share.charsetString, equals("ab-"));
     share = new StringShare("bab---001-6");
     expect(share.point, equals(new Point(1, 6)));
     expect(share.charsetString, equals("ba-"));
-    share = new RawShare("10-5");
-    expect(share.point, equals(new Point(10, 5)));
+    share = new RawShare("f-5");
+    expect(share.point, equals(new Point(15, 5)));
     share = new RawShare("01-5");
     expect(share.point, equals(new Point(1, 5)));
   });
