@@ -11,7 +11,7 @@ final ArgParser parser = new ArgParser();
 
 void setupParser() {
   parser.addFlag(RAW, help: "Use this flag if input are raw shares",
-      negatable: false);  
+      negatable: false);
 }
 
 
@@ -27,7 +27,7 @@ main(List<String> args) {
   for (int i = 1; i <= noOfShares; i++) {
     print("Please enter share no. $i");
     var str = stdin.readLineSync();
-    var share = result[RAW] ? new RawShare(str) : new StringShare(str);
+    var share = result[RAW] ? new RawShare(str) : new StringShare.parse(str);
     shares.add(share);
   }
   

@@ -4,12 +4,15 @@ import "package:secret_sharing/secret_sharing.dart";
 import "console_util.dart";
 
 const RAW = "raw";
+const ASCII = "ascii";
 
 final ArgParser parser = new ArgParser();
 
 void setupParser() {
   parser.addFlag(RAW, abbr: "r", help: "If the input is an int, this " +
       "generates raw shares", negatable: false);
+  parser.addFlag(ASCII, help: "Should the shares be ASCII-Encoded?",
+       negatable: false);
 }
 
 
@@ -30,8 +33,11 @@ main(List<String> args) {
       "and smaller or equal the number of total shares",
       test: (arg) => arg > 0 && arg <= noOfShares);
   
+  var charset = result[ASCII] ? new ASCIICharset() :
+    new DynamicCharset.create(secret);
+  
   ShareCodec converter = result[RAW] ? new RawShareCodec(noOfShares, neededShares) :
-    new StringShareCodec(noOfShares, neededShares);
+    new StringShareCodec(noOfShares, neededShares, charset);
   
   var shares = converter.encode(secret);
   shares.forEach((share) => print(share));

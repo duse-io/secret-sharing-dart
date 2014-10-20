@@ -20,18 +20,18 @@ class RawShare implements Share {
 }
 
 class StringShare implements RawShare {
-  final Set<String> charset;
+  final Charset charset;
   final RawShare rawShare;
   
   StringShare._(this.charset, this.rawShare);
   
   
-  StringShare.fromRawShare(RawShare share, String charset)
+  StringShare.fromRawShare(RawShare share, Charset charset)
       : rawShare = share,
-        charset = new Set.from(charset.split(""));
+        charset = charset;
   
   
-  factory StringShare(String share) {
+  factory StringShare.parse(String share) {
     int ct = 0;
     int i = share.length - 1;
     while (ct != 2) {
@@ -39,14 +39,14 @@ class StringShare implements RawShare {
       i--;
     }
     var rawShare = new RawShare(share.substring(i + 2));
-    var set = new Set.from(share.substring(0, i + 1).split(""));
+    var set = new Charset.fromString(share.substring(0, i + 1));
     return new StringShare._(set, rawShare);
   }
   
   
   String toString() => charsetString + "-" + rawShare.toString();
   
-  String get charsetString => charset.join();
+  String get charsetString => charset.representation;
   
   Point get point => rawShare.point;
 }
@@ -83,17 +83,25 @@ class RawShareEncoder extends ShareEncoder<int, RawShare> {
 
 class StringShareEncoder extends ShareEncoder<String, StringShare> {
   final RawShareEncoder _encoder;
+  final Charset charset;
+  final CharsetToIntConverter converter;
   
-  StringShareEncoder(int noOfShares, int neededShares)
-      : _encoder = new RawShareEncoder(noOfShares, neededShares),
+  factory StringShareEncoder.bySecret(int noOfShares, int neededShares, String secret) {
+    var charset = new Charset.create(secret);
+    return new StringShareEncoder(noOfShares, neededShares, charset);
+  }
+  
+  StringShareEncoder(int noOfShares, int neededShares, Charset charset)
+      : charset = charset,
+        _encoder = new RawShareEncoder(noOfShares, neededShares),
+        converter = new CharsetToIntConverter(charset),
         super(noOfShares, neededShares);
   
   List<StringShare> convert(String secret) {
-    var converter = new CharsetToIntConverter.fromString(secret);
     var representation = converter.convert(secret);
     var rawShares = _encoder.convert(representation);
     return rawShares.map((share) =>
-        new StringShare.fromRawShare(share, converter.charsetRepr)).toList();
+        new StringShare.fromRawShare(share, charset)).toList();
   }
 }
 
@@ -138,8 +146,15 @@ class RawShareCodec extends ShareCodec<int, RawShare> {
 class StringShareCodec extends ShareCodec<String, StringShare> {
   final StringShareDecoder decoder = new StringShareDecoder();
   final StringShareEncoder encoder;
+  final Charset charset;
   
-  StringShareCodec(int noOfShares, int neededShares)
-      : encoder = new StringShareEncoder(noOfShares, neededShares),
+  factory StringShareCodec.bySecret(int noOfShares, int neededShares, String secret) {
+    var charset = new Charset.create(secret);
+    return new StringShareCodec(noOfShares, neededShares, charset);
+  }
+  
+  StringShareCodec(int noOfShares, int neededShares, Charset charset)
+      : charset = charset,
+        encoder = new StringShareEncoder(noOfShares, neededShares, charset),
         super(noOfShares, neededShares);
 }

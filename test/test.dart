@@ -13,23 +13,23 @@ rTest(String name, f(), {randomCount: RANDOM_COUNT}) {
 
 main() {
   test("Share parsing", () {
-    var share = new StringShare("abc-0-1");
+    var share = new StringShare.parse("abc-0-1");
     expect(share.point, equals(new Point(0, 1)));
     expect(share.charsetString, equals("abc"));
-    share = new StringShare("ab----f-5");
+    share = new StringShare.parse("ab----f-5");
     expect(share.point, equals(new Point(15, 5)));
     expect(share.charsetString, equals("ab-"));
-    share = new StringShare("bab---001-6");
+    share = new StringShare.parse("bab---001-6");
     expect(share.point, equals(new Point(1, 6)));
     expect(share.charsetString, equals("ba-"));
+    share = new StringShare.parse(r"$$ASCII-1-f");
+    expect(share.charset, new isInstanceOf<ASCIICharset>());
+    expect(share.charsetString, equals(r"$$ASCII"));
+    expect(share.point, equals(new Point(1, 15)));
     share = new RawShare("f-5");
     expect(share.point, equals(new Point(15, 5)));
     share = new RawShare("01-5");
     expect(share.point, equals(new Point(1, 5)));
-  });
-  
-  test("Lagrange interpolation", () {
-    
   });
   
   rTest("Raw share codec", () {
@@ -41,10 +41,11 @@ main() {
   });
   
   
-  rTest("String share codec", () {
-    var codec = new StringShareCodec(3, 2);
-    var shares = codec.encode("Groß genug?");
+  rTest("String share codec with dynamic charset", () {
+    var secret = r"Some strange signs :-'$#äöü";
+    var codec = new StringShareCodec.bySecret(3, 2, secret);
+    var shares = codec.encode(secret);
     var decoded = codec.decode((shares..shuffle).sublist(1, 3));
-    expect(decoded, equals("Groß genug?"));
+    expect(decoded, equals(secret));
   });
 }
