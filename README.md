@@ -4,7 +4,7 @@ secret-sharing-dart
 > **Warning:** This implementation has not been tested in production nor has it been examined by a security audit.
 > All uses are your own responsibility.
 
-This library is an implementation of (Shamir's Secret Sharing Algorithm)[http://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing].
+This library is an implementation of [Shamir's Secret Sharing Algorithm](http://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing).
 It also uses the `Converter` and `Codec` framework of `dart:convert`.
 
 To encode a secret, first import the library:
@@ -60,4 +60,4 @@ For the command line, there are two tools: The `secret_encoder` and the `secret_
 Those tools enable quick access for share generation and secret recovering and have both
 an included help via `--help`.
 
-Btw, this library is compatible to (flower-pot's Ruby implementation of Shamir's Secret Sharing)[https://github.com/flower-pot/secret_sharing].
+Btw, this library is compatible to [flower-pot's Ruby implementation of Shamir's Secret Sharing](https://github.com/flower-pot/secret_sharing).
