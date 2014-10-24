@@ -34,17 +34,27 @@ class StringShare implements RawShare {
   factory StringShare.parse(String share) {
     int ct = 0;
     int i = share.length - 1;
-    while (ct != 2) {
-      if (share[i] == "-") ct++;
-      i--;
+    var charsetString = "";
+    var rawShareString = "";
+    for (int i = share.length -1; i >= 0; i--) {
+      if (share[i] == "-") {
+        ct ++;
+        if (ct == 2) continue;
+      }
+      if (ct <= 1) {
+        rawShareString = share[i] + rawShareString;
+        continue;
+      }
+      charsetString = share[i] + charsetString;
     }
-    var rawShare = new RawShare(share.substring(i + 2));
-    var set = new Charset.fromString(share.substring(0, i + 1));
-    return new StringShare._(set, rawShare);
+    var rawShare = new RawShare(rawShareString);
+    var charset = new Charset.fromString(charsetString);
+    return new StringShare._(charset, rawShare);
   }
   
   
-  String toString() => charsetString + "-" + rawShare.toString();
+  String toString() => charsetString == "" ? rawShare.toString() :
+    charsetString + "-" + rawShare.toString();
   
   String get charsetString => charset.representation;
   

@@ -8,12 +8,12 @@ class Charset {
   const Charset._(this.characters);
   
   factory Charset.create(String characters) {
-    if (characters == r"$$ASCII") return new ASCIICharset();
+    if (characters == "") return new ASCIICharset();
     return new DynamicCharset.create(characters);
   }
   
   factory Charset.fromString(String from) {
-    if (from == r"$$ASCII") return new ASCIICharset();
+    if (from == r"$$ASCII" || from == "") return new ASCIICharset();
     return new DynamicCharset.fromString(from);
   }
   
@@ -56,7 +56,7 @@ class ASCIICharset implements Charset {
   int indexOf(String char) => charset.indexOf(char);
   operator[](int index) => charset[index];
   Set<String> get characters => charset.characters;
-  String get representation => r"$$ASCII";
+  String get representation => "";
 }
 
 
