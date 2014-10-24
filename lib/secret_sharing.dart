@@ -13,14 +13,11 @@ part 'src/charset.dart';
 part 'src/sharing.dart';
 part 'src/lagrange.dart';
 
+/// The maximum number which can be reached by [Random] generators
 const _RANDOM_MAX = ((1 << 32) - 1);
-final BRandom _random = new BRandom();
-final Logger log = new Logger("secret_sharing");
 
-Set<int> _distinctRandomNumbers(int count, int max) {
-  var result = new Set<int>();
-  while(result.length < count) {
-    result.add(_random.nextInt(max));
-  }
-  return result;
-}
+/// The [BRandom] generator used for big random numbers
+final BRandom _random = new BRandom();
+
+/// The logger of this library
+final Logger log = new Logger("secret_sharing");

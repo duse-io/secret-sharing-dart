@@ -1,7 +1,6 @@
 part of secret_sharing;
 
-typedef Func(int x);
-
+/// Constructs a lagrange polynomial out of the given points and calculates f(0).
 int modularLagrange(List<Point<int>> points) {
   var xValues = [];
   var yValues = [];
@@ -18,7 +17,7 @@ int modularLagrange(List<Point<int>> points) {
           if (i == j) continue;
           numerator = (numerator * (0 - xValues[j])) % prime;
           denominator = (denominator * (xValues[i] - xValues[j])) % prime;
-      var lagrange_polynomial = numerator * modInverse(denominator, prime);
+      var lagrange_polynomial = numerator * _modInverse(denominator, prime);
       f_x = (prime + f_x + (yValues[i] * lagrange_polynomial)) % prime;
       }
   }
@@ -26,7 +25,7 @@ int modularLagrange(List<Point<int>> points) {
 }
 
 
-int modInverse(int k, int prime) {
+int _modInverse(int k, int prime) {
   int v = k % prime;
   int r = _egcd(prime, v.abs())[2];
   return (prime + r) % prime;
