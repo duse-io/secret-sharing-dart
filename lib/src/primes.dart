@@ -27,10 +27,6 @@ final PRIMES = _MERSENNE_PRIME_EXPONENTS.map((n) => pow(2, n) - 1)
                                    _SMALLEST_321BIT_PRIME,
                                    _SMALLEST_385BIT_PRIME]);
 
-
-/// Returns the first prime which is larger than [n]
-int getPrimeLargerThan(int n) => PRIMES.firstWhere((p) => p < n);
-
 /// Returns the first prime which is larger than all elements of [l]
 int getLargeEnoughPrime(List<int> l) => PRIMES.firstWhere((p) =>
     l.every((n) => n < p));
