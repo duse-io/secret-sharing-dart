@@ -201,7 +201,7 @@ class StringShareEncoder extends ShareEncoder<String, StringShare> {
   StringShareEncoder(int noOfShares, int neededShares, Charset charset, {Random random})
       : charset = charset,
         _encoder = new RawShareEncoder(noOfShares, neededShares,
-            random == null? random : _random),
+            random == null? _random : random),
         converter = new CharsetToIntConverter(charset),
         super(noOfShares, neededShares);
   
