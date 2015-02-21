@@ -3,6 +3,7 @@ import 'polynomial_test.dart';
 import 'primes_test.dart';
 import 'secret_sharing_test.dart';
 import 'share_test.dart';
+import 'random_test.dart';
 
 main() {
   defineCharsetTests();
@@ -10,4 +11,5 @@ main() {
   defineShareTests();
   definePolynomialTests();
   definePrimeTests();
+  defineRandomTests();
 }

@@ -19,8 +19,8 @@ class Polynomial<E extends num> {
 
   /// Creates a new <[int]> [Polynomial] of degree [degree] with values from 0
   /// to [max] (excluding).
-  factory Polynomial.randomInt(int degree, int max) {
-    var coefficients = getRandomCoefficients(degree, _RANDOM_MAX);
+  factory Polynomial.random(int degree, int max, {Random random}) {
+    var coefficients = getRandomCoefficients(degree, max, random: random);
     return new Polynomial(coefficients);
   }
 

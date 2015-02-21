@@ -1,11 +1,11 @@
 library secret_sharing.test.share;
 
+import 'dart:math' show Random;
+
 import 'package:unittest/unittest.dart';
 import 'package:secret_sharing/secret_sharing.dart';
 
-main() => defineShareTests();
-
-void defineShareTests() {
+defineShareTests() {
   group("Share Parsing", () {
     test("Parse dynamic share", () {
       var share = new StringShare.parse("abc-0-1");
@@ -42,6 +42,16 @@ void defineShareTests() {
       var share = new RawShare("f-5");
 
       expect(share.point, equals(new Point(15, 5)));
+    });
+    
+    test("Raw share toString", () {
+      var share = new RawShare.fromPoint(new Point(1, 15));
+      
+      expect(share.toString(), equals("1-f"));
+    });
+    
+    test("Share Encoder Illegal constructor", () {
+      expect(() => new RawShareEncoder(2, 3, new Random()), throws);
     });
   });
 }

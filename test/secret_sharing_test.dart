@@ -5,8 +5,6 @@ import 'package:mock/mock.dart';
 import 'package:unittest/unittest.dart';
 import 'random_test_util.dart';
 
-main() => defineCodecTests();
-
 defineCodecTests() {
   globalRandomCount = 10000;
   

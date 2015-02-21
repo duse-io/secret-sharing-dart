@@ -8,7 +8,7 @@ var globalRandomCount = 1;
 
 @proxy
 class RandomMock extends Mock implements Random {
-  RandomMock(List<int> pseudoRandoms) : super.custom(throwIfNoBehavior: true){
+  RandomMock([List<int> pseudoRandoms = const[]]) : super.custom(throwIfNoBehavior: true){
     for (var pseudoRandom in pseudoRandoms) {
       this.when(callsTo("nextInt", anything)).thenReturn(pseudoRandom);
     }

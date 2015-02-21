@@ -9,16 +9,17 @@ part of secret_sharing;
 /// should only be used for testing this library.
 class BRandom implements Random{
   /// Creates a new [BRandom] instance.
-  BRandom();
+  BRandom([Random random])
+      : _random = null == random ? new Random() : random;
   
   
   /// The random generator used for the digit generation
-  final Random _random = new Random();
+  final Random _random;
   
   /// Returns an int between 0 (inclusive) and max(exclusive)
   int nextInt(int max) {
     if (max < 0) throw new ArgumentError("max value can't be < 0");
-    int digits = max.toString().length;
+    int digits = (max - 1).toString().length; // One digit less because max is exclusive
     var out = 0;
     do {
       var str = "";
@@ -26,7 +27,7 @@ class BRandom implements Random{
         str += this._random.nextInt(10).toString();
       }
       out = int.parse(str);
-    } while (out < max);
+    } while (out >= max);
     return out;
   }
   
@@ -34,10 +35,10 @@ class BRandom implements Random{
   int nextIntBetween(int min, int max) => min + nextInt(max - min);
   
   /// Returns a random boolean value (true or false)
-  bool nextBool() => new Random().nextBool();
+  bool nextBool() => _random.nextBool();
   
   /// Returns a random double value
-  double nextDouble() => new Random().nextDouble();
+  double nextDouble() => _random.nextDouble();
   
   /// Returns a [Set] of ints between 0 (inclusive) and max (exclusive)
   Set<int> nextIntSet(int count, int max) {
