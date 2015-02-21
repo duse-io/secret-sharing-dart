@@ -1,8 +1,11 @@
+library secret_sharing.test.share;
+
 import 'package:unittest/unittest.dart';
 import 'package:secret_sharing/secret_sharing.dart';
 
+main() => defineShareTests();
 
-void main() {
+void defineShareTests() {
   group("Share Parsing", () {
     test("Parse dynamic share", () {
       var share = new StringShare.parse("abc-0-1");

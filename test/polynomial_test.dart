@@ -1,10 +1,13 @@
+library secret_sharing.test.polynomial;
+
 import 'random_test_util.dart';
 import 'package:mock/mock.dart';
 import 'package:secret_sharing/secret_sharing.dart';
 import 'package:unittest/unittest.dart';
 
+main() => definePolynomialTests();
 
-main() {
+definePolynomialTests() {
   group("Standard polynomial", () {
     test("Calculation", () {
       var polynomial = new Polynomial([1, 2, 3]); //1 + 2x + 3x^2

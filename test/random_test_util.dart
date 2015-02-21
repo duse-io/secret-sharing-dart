@@ -1,3 +1,5 @@
+library secret_sharing.test.random_mock;
+
 import 'dart:math';
 import 'package:unittest/unittest.dart';
 import 'package:mock/mock.dart';

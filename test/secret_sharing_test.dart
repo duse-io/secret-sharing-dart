@@ -1,9 +1,13 @@
+library secret_sharing.test.codec;
+
 import 'package:secret_sharing/secret_sharing.dart';
 import 'package:mock/mock.dart';
 import 'package:unittest/unittest.dart';
 import 'random_test_util.dart';
 
-main() {
+main() => defineCodecTests();
+
+defineCodecTests() {
   globalRandomCount = 10000;
   
   test("Raw share encoding", () {

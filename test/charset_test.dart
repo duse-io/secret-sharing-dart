@@ -1,7 +1,11 @@
+library secret_sharing.test.charset;
+
 import 'package:secret_sharing/secret_sharing.dart';
 import 'package:unittest/unittest.dart';
 
-main() {
+main() => defineCharsetTests();
+
+defineCharsetTests() {
   group("CharsetToIntConverter", () {
     test("ASCII Charset", () {
       var converter = new CharsetToIntConverter(new ASCIICharset());
