@@ -1,5 +1,6 @@
 secret-sharing-dart
 ===================
+[![Build Status](https://drone.io/github.com/Adracus/secret-sharing-dart/status.png)](https://drone.io/github.com/Adracus/secret-sharing-dart/latest)
 [![Coverage Status](https://coveralls.io/repos/duse-io/secret-sharing-dart/badge.svg?branch=master)](https://coveralls.io/r/duse-io/secret-sharing-dart?branch=master)
 > **Warning:** This implementation has not been tested in production nor has it been examined by a security audit.
 > All uses are your own responsibility.
