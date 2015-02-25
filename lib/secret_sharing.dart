@@ -3,6 +3,7 @@ library secret_sharing;
 import 'dart:math' show Random, Point, pow;
 import 'dart:convert' show Codec, Converter, UTF8, ASCII;
 import 'package:logging/logging.dart';
+import 'package:bbs/bbs.dart';
 
 export 'dart:math' show Point;
 

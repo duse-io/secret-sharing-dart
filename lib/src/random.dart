@@ -10,7 +10,7 @@ part of secret_sharing;
 class BRandom implements Random{
   /// Creates a new [BRandom] instance.
   BRandom([Random random])
-      : _random = null == random ? new Random() : random;
+      : _random = null == random ? new BlumBlumShub() : random;
   
   
   /// The random generator used for the digit generation
