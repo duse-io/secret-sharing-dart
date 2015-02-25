@@ -1,7 +1,7 @@
 name: secret_sharing
-version: 0.0.1
+version: 0.0.2
 author: Axel Christ <adracus@gmail.com>
-description: A pub package
+description: Implementation of Shamirs Secret Sharing algorithm
 homepage: https://github.com/duse-io/secret-sharing-dart
 documentation: https://github.com/duse-io/secret-sharing-dart
 dependencies:
