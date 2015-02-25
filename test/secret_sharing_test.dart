@@ -6,7 +6,7 @@ import 'package:unittest/unittest.dart';
 import 'random_test_util.dart';
 
 defineCodecTests() {
-  globalRandomCount = 10000;
+  globalRandomCount = 100;
   
   test("Raw share encoding", () {
     var random = new RandomMock([4]);

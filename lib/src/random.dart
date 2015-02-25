@@ -18,6 +18,7 @@ class BRandom implements Random{
   
   /// Returns an int between 0 (inclusive) and max(exclusive)
   int nextInt(int max) {
+    if (_random is BlumBlumShub) return _random.nextInt(max);
     if (max < 0) throw new ArgumentError("max value can't be < 0");
     int digits = (max - 1).toString().length; // One digit less because max is exclusive
     var out = 0;
@@ -38,7 +39,10 @@ class BRandom implements Random{
   bool nextBool() => _random.nextBool();
   
   /// Returns a random double value
-  double nextDouble() => _random.nextDouble();
+  double nextDouble() {
+    if (_random is BlumBlumShub) return new Random().nextDouble();
+    return _random.nextDouble();
+  }
   
   /// Returns a [Set] of ints between 0 (inclusive) and max (exclusive)
   Set<int> nextIntSet(int count, int max) {
