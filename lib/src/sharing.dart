@@ -83,7 +83,7 @@ class StringShare implements RawShare {
       charsetString = share[i] + charsetString;
     }
     var rawShare = new RawShare(rawShareString);
-    var charset = new Charset.fromString(charsetString);
+    var charset = new ASCIICharset();
     return new StringShare._(charset, rawShare);
   }
   
@@ -177,18 +177,6 @@ class StringShareEncoder extends ShareEncoder<String, StringShare> {
   
   /// The [CharsetToIntConverter] used to get the [int] representation of given [String]s
   final CharsetToIntConverter converter;
-  
-  
-  /// Instantiates a new encoder which uses a dynamic charset based on the given secret
-  /// 
-  /// This creates a new encoder, which produces [noOfShares] shares if you call
-  /// the [convert] method. [neededShares] are needed to recover the given
-  /// [secret]. The [Charset] used by this encoder is a [DynamicCharset].
-  factory StringShareEncoder.bySecret(int noOfShares, int neededShares, String secret,
-      {Random random}) {
-    var charset = new Charset.create(secret);
-    return new StringShareEncoder(noOfShares, neededShares, charset, random: random);
-  }
   
   /// Instantiates a new encoder with the specified [noOfShares], [neededShares]
   /// and [charset].
@@ -296,7 +284,7 @@ class StringShareCodec extends ShareCodec<String, StringShare> {
   /// used by this codec is a [DynamicCharset] specified by [secret].
   factory StringShareCodec.bySecret(int noOfShares, int neededShares, String secret,
       {Random random}) {
-    var charset = new Charset.create(secret);
+    var charset = new ASCIICharset();
     return new StringShareCodec(noOfShares, neededShares, charset, random: random);
   }
   

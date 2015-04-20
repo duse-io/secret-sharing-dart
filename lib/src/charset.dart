@@ -11,28 +11,6 @@ class Charset {
   /// Creates a new instance of [Charset] with the specified characters
   const Charset._(this.characters);
   
-  /// Creates a new [Charset] with [characters] containing the characters.
-  /// 
-  /// If [characters] is `""` or `r"$$ASCII"`, instantiates a new [ASCIICharset]
-  /// (default). Otherwise, instantiates a new [DynamicCharset] containing the
-  /// given [characters] after shuffling them and adding the [NULL_RUNE] at
-  /// index zero
-  factory Charset.create(String characters) {
-    if (characters == "" || characters == r"$$ASCII") return new ASCIICharset();
-    return new DynamicCharset.create(characters);
-  }
-  
-  /// Creates a new [Charset] with [characters] containing the characters.
-  /// 
-  /// If [characters] is `""` or `r"$$ASCII"`, instantiates a new [ASCIICharset]
-  /// (default). Otherwise, instantiates a new [DynamicCharset] containing the
-  /// given [characters] and adding the [NULL_RUNE] at
-  /// index zero (no shuffling)
-  factory Charset.fromString(String from) {
-    if (from == r"$$ASCII" || from == "") return new ASCIICharset();
-    return new DynamicCharset.fromString(from);
-  }
-  
   /// Returns the index of the given [char] in the [characters] set
   int indexOf(String char) => characters.toList().indexOf(char);
   
@@ -44,39 +22,6 @@ class Charset {
   
   /// Returns the representation of [characters] by [join]ing them
   String get representation => characters.toList().join();
-}
-
-
-/// A charset which assembles dynamically by given [String]s.
-class DynamicCharset implements Charset {
-  
-  /// The charset of this
-  final Charset charset;
-  
-  /// Creates a new [DynamicCharset] with [characters] after having
-  /// them shuffled and with the [NULL_RUNE] added at index 0.
-  DynamicCharset.create(String characters)
-      : charset = new Charset._(([NULL_RUNE]..addAll(characters.split("")
-                                                   ..shuffle())).toSet());
-  /// Creates a new [DynamicCharset] with [characters] with the
-  /// [NULL_RUNE] added at index 0 (no shuffling).
-  DynamicCharset.fromString(String from)
-      : charset = new Charset._(([NULL_RUNE]..addAll(from.split(""))).toSet());
-  
-  /// Returns the length of the underlying [charset].
-  int get length => characters.length;
-  
-  /// Returns the index of the given [char] in the [charset].
-  int indexOf(String char) => charset.indexOf(char);
-  
-  /// Returns the element at [index] in [charset].
-  operator[](int index) => charset[index];
-  
-  /// Returns the [Set] of characters of [charset].
-  Set<String> get characters => charset.characters;
-  
-  /// Represents this [Charset] via all characters joined (excluding [NULL_RUNE]).
-  String get representation => characters.toList().sublist(1).join();
 }
 
 

@@ -27,13 +27,4 @@ defineCodecTests() {
     var decoded = codec.decode(decodable);
     expect(decoded, equals(900000000000000));
   });
-  
-  // Heuristic Test
-  rTest("String share codec with dynamic charset", () {
-    var secret = r"Some strange signs :-'$#äöü";
-    var codec = new StringShareCodec.bySecret(3, 2, secret);
-    var shares = codec.encode(secret);
-    var decoded = codec.decode((shares..shuffle).sublist(1, 3));
-    expect(decoded, equals(secret));
-  });
 }

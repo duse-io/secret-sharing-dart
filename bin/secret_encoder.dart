@@ -14,8 +14,6 @@ final ArgParser parser = new ArgParser();
 void setupParser() {
   parser.addFlag(RAW, abbr: "r", help: "If the input is an int, this " +
       "generates raw shares", negatable: false);
-  parser.addFlag(ASCII, help: "Should the shares be ASCII-Encoded?",
-       negatable: false);
   parser.addOption(SECRET, help: "The secret which should be encoded");
   parser.addOption(TOTAL, help: "The total number of shares");
   parser.addOption(NEEDED,
@@ -36,8 +34,7 @@ main(List<String> args) {
   var neededShares = result[NEEDED] != null? int.parse(result[NEEDED]) :
     readNeededShares(noOfShares);
   
-  var charset = result[ASCII] ? new ASCIICharset() :
-    new DynamicCharset.create(secret);
+  var charset = new ASCIICharset();
   
   ShareCodec converter = result[RAW] ? new RawShareCodec(noOfShares, neededShares) :
     new StringShareCodec(noOfShares, neededShares, charset);
